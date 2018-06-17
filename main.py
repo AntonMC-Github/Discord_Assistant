@@ -73,6 +73,6 @@ def on_message(message):
         else:
 
             yield from client.send_message(message.channel, embed=Embed(color=discord.Color.red(),
-                                                                        description=("Tut mir leid, diesen #Befehl gibt es nicht! Techniker sind halt von Natur aus faul ;)"))
+                                                                        description=("Tut mir leid, diesen #Befehl gibt es nicht! Techniker sind halt von Natur aus faul ;)")))
 
 client.run(SECRETS.TOKEN)
