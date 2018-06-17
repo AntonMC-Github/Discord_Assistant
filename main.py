@@ -1,0 +1,119 @@
+import asyncio as asyncio
+import discord
+from discord import Game, Server, Member, Embed
+
+import SECRETS
+import STATICS
+from commands import cmd_ping, cmd_help, cmd_dieantwort, cmd_baum, cmd_paperfreddie, cmd_pokemon, cmd_lol, \
+    cmd_eisen, cmd_afd, cmd_trump, cmd_gold, cmd_bismut, cmd_add, cmd_Schokolade, cmd_tjc_magazin, cmd_kick, \
+    cmd_abstimmung, cmd_bewerbung, cmd_mir_reichts, cmd_lock, cmd_unlock
+
+client = discord.Client()
+
+players = {}
+
+commands = {
+
+    "ping": cmd_ping,
+    "help": cmd_help,
+    "die-antwort": cmd_dieantwort,
+    "antwort": cmd_dieantwort,
+    "paperfreddie": cmd_paperfreddie,
+    "pokemon": cmd_pokemon,
+    "lol": cmd_lol,
+    "eisen": cmd_eisen,
+    "afd": cmd_afd,
+    "trump": cmd_trump,
+    "gold": cmd_gold,
+    "bismut": cmd_bismut,
+    "add": cmd_add,
+    "abstimmung": cmd_abstimmung,
+    "bewerbung": cmd_bewerbung,
+    "mir-reichts": cmd_mir_reichts,
+    "lock": cmd_lock,
+    "unlock": cmd_unlock,
+
+}
+
+selfmade = {
+
+    "schokolade": cmd_Schokolade,
+    "tjc-magazin": cmd_tjc_magazin,
+    "kick": cmd_kick,
+    "baum": cmd_baum,
+
+}
+
+
+@client.event
+@asyncio.coroutine
+def on_ready():
+    print("Bot hat sich erfolgreich einngeloggt, der Bot läuft derzeit auf folgenden Servern:\n")
+    for s in client.servers:
+        print("  - %s (%s)" % (s.name, s.id))
+    yield from client.change_presence(game=Game(name="Assistant Bot Ps: Hilft dir gerne xD"))
+
+
+@client.event
+@asyncio.coroutine
+def on_message(message):
+    if message.content.startswith(STATICS.PREFIX):
+
+        invoke = message.content[len(STATICS.PREFIX):].split(" ")[0]
+        args = message.content.split(" ")[1:]
+
+        if commands.__contains__(invoke):
+
+            yield from commands.get(invoke).ex(args, message, client, invoke)
+
+        elif selfmade.__contains__(invoke):
+
+            yield from client.send_message(message.channel, selfmade.get(invoke).MESSAGE)
+
+        else:
+
+            yield from client.send_message(message.channel, embed=Embed(color=discord.Color.red(),
+                                                                        description=("Tut mir leid, diesen #Befehl gibt es nicht! Techniker sind halt von Natur aus faul ;)")))
+
+    if message.content.startswith('?join'):
+        try:
+            channel = message.author.voice.voice_channel
+            yield from client.join_voice_channel(channel)
+        except discord.errors.InvalidArgument:
+            yield from client.send_message(message.channel, "Kein Voice channel gefunden.")
+        except Exception as error:
+            yield from client.send_message(message.channel, "Ein Error: ```{error}```".format(error=error))
+
+    if message.content.startswith('?quit'):
+        try:
+            voice_client = client.voice_client_in(message.server)
+            yield from voice_client.disconnect()
+        except AttributeError:
+            yield from client.send_message(message.channel, "Ich bin zur zeit nicht connected.")
+        except Exception as Hugo:
+            yield from client.send_message(message.channel, "Ein Error: ```{haus}```".format(haus=Hugo))
+
+    if message.content.startswith('?play '):
+        try:
+            yt_url = message.content[6:]
+            channel = message.author.voice.voice_channel
+            voice = yield from client.join_voice_channel(channel)
+            player = yield from voice.create_ytdl_player(yt_url)
+            players[message.server.id] = player
+            player.start()
+        except:
+            yield from client.send_message(message.channel, "Error.")
+
+    elif message.content.startswith('?pause'):
+        try:
+            players[message.server.id].pause()
+        except:
+            pass
+    elif message.content.startswith('?resume'):
+        try:
+            players[message.server.id].resume()
+        except:
+            pass
+
+
+client.run(SECRETS.TOKEN)
