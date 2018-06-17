@@ -1,1 +1,1 @@
-Message = 'Schokolade http://de.wikipedia.org/Schokolade Pe'
+Message = 'Schokolade http://de.wikipedia.org/Schokolade '
