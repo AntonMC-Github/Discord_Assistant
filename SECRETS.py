@@ -1,1 +1,1 @@
-NICHT FÜR UNREGISTRIERTE NUTZER SICHTBAR.
+INFO: Token nicht für unregistrierte User sichtbar.
