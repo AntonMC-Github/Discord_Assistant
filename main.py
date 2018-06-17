@@ -73,47 +73,6 @@ def on_message(message):
         else:
 
             yield from client.send_message(message.channel, embed=Embed(color=discord.Color.red(),
-                                                                        description=("Tut mir leid, diesen #Befehl gibt es nicht! Techniker sind halt von Natur aus faul ;)")))
-
-    if message.content.startswith('?join'):
-        try:
-            channel = message.author.voice.voice_channel
-            yield from client.join_voice_channel(channel)
-        except discord.errors.InvalidArgument:
-            yield from client.send_message(message.channel, "Kein Voice channel gefunden.")
-        except Exception as error:
-            yield from client.send_message(message.channel, "Ein Error: ```{error}```".format(error=error))
-
-    if message.content.startswith('?quit'):
-        try:
-            voice_client = client.voice_client_in(message.server)
-            yield from voice_client.disconnect()
-        except AttributeError:
-            yield from client.send_message(message.channel, "Ich bin zur zeit nicht connected.")
-        except Exception as Hugo:
-            yield from client.send_message(message.channel, "Ein Error: ```{haus}```".format(haus=Hugo))
-
-    if message.content.startswith('?play '):
-        try:
-            yt_url = message.content[6:]
-            channel = message.author.voice.voice_channel
-            voice = yield from client.join_voice_channel(channel)
-            player = yield from voice.create_ytdl_player(yt_url)
-            players[message.server.id] = player
-            player.start()
-        except:
-            yield from client.send_message(message.channel, "Error.")
-
-    elif message.content.startswith('?pause'):
-        try:
-            players[message.server.id].pause()
-        except:
-            pass
-    elif message.content.startswith('?resume'):
-        try:
-            players[message.server.id].resume()
-        except:
-            pass
-
+                                                                        description=("Tut mir leid, diesen #Befehl gibt es nicht! Techniker sind halt von Natur aus faul ;)"))
 
 client.run(SECRETS.TOKEN)
