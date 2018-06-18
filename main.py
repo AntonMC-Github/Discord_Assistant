@@ -81,7 +81,7 @@ def on_message(message):
 
         elif admin_cmd.__contains__(invoke):
             if message.author.id == allowed_admins:
-            yield from commands.get(invoke).ex(args, message, client, invoke)
+                yield from commands.get(invoke).ex(args, message, client, invoke)
 
         else:
 
