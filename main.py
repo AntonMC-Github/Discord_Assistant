@@ -12,6 +12,7 @@ from admincmd import admin_game
 client = discord.Client()
 
 players = {}
+allowed_admins = "292712398887059457", "282548932918116352"
 
 commands = {
 
@@ -79,7 +80,7 @@ def on_message(message):
             yield from client.send_message(message.channel, selfmade.get(invoke).MESSAGE)
 
         elif admin_cmd.__contains__(invoke):
-
+            if message.author.id == allowed_admins:
             yield from commands.get(invoke).ex(args, message, client, invoke)
 
         else:
