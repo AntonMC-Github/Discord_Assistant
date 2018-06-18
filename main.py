@@ -53,6 +53,11 @@ def on_ready():
         print("  - %s (%s)" % (s.name, s.id))
     yield from client.change_presence(game=Game(name="Assistant Bot Ps: Hilft dir gerne xD"))
 
+    if message.content.startswith('!game') and message.author.id == ImXemm:
+        game = message.content[6:]
+        await client.change_presence(game=discord.Game(name=game), status='online')
+        await client.send_message(message.channel, "Ich habe meinen Status zu {0} geandert.".format(game))
+
 
 @client.event
 @asyncio.coroutine
