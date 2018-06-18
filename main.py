@@ -7,6 +7,7 @@ import STATICS
 from commands import cmd_ping, cmd_help, cmd_dieantwort, cmd_baum, cmd_paperfreddie, cmd_pokemon, cmd_lol, \
     cmd_eisen, cmd_afd, cmd_trump, cmd_gold, cmd_bismut, cmd_add, cmd_Schokolade, cmd_tjc_magazin, cmd_kick, \
     cmd_abstimmung, cmd_bewerbung, cmd_mir_reichts, cmd_lock, cmd_unlock
+from admincmd import admin_game
 
 client = discord.Client()
 
@@ -44,6 +45,12 @@ selfmade = {
 
 }
 
+admin_cmd = {
+
+    "game": admin_game,
+
+}
+
 
 @client.event
 @asyncio.coroutine
@@ -70,6 +77,10 @@ def on_message(message):
         elif selfmade.__contains__(invoke):
 
             yield from client.send_message(message.channel, selfmade.get(invoke).MESSAGE)
+
+        elif admin_cmd.__contains__(invoke):
+
+            yield from commands.get(invoke).ex(args, message, client, invoke)
 
         else:
 
