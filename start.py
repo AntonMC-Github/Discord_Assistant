@@ -2,6 +2,8 @@
 import asyncio as asyncio
 import discord
 
+client = discord.Client()
+
 @client.event
 @asyncio.coroutine
 def start():
