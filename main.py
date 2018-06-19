@@ -41,7 +41,6 @@ commands = {
 selfmade = {
 
     "schokolade": cmd_Schokolade,
-    "tjc-magazin": cmd_tjc_magazin,
     "kick": cmd_kick,
     "baum": cmd_baum,
 
