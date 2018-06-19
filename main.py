@@ -8,6 +8,7 @@ from commands import cmd_ping, cmd_help, cmd_dieantwort, cmd_baum, cmd_paperfred
     cmd_eisen, cmd_afd, cmd_trump, cmd_gold, cmd_bismut, cmd_add, cmd_Schokolade, cmd_tjc_magazin, cmd_kick, \
     cmd_abstimmung, cmd_bewerbung, cmd_mir_reichts, cmd_lock, cmd_unlock
 from admincmd import admin_game
+import start
 
 client = discord.Client()
 
@@ -56,10 +57,7 @@ admin_cmd = {
 @client.event
 @asyncio.coroutine
 def on_ready():
-    print("Bot hat sich erfolgreich einngeloggt, der Bot laeuft derzeit auf folgenden Servern:\n")
-    for s in client.servers:
-        print("  - %s (%s)" % (s.name, s.id))
-    yield from client.change_presence(game=Game(name="Assistant Bot Ps: Hilft dir gerne xD"))
+    start.start()
 
 
 
