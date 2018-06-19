@@ -1,3 +1,7 @@
+
+import asyncio as asyncio
+import discord
+
 @client.event
 @asyncio.coroutine
 def start():
