@@ -8,8 +8,7 @@ def ex(args, message, client, invoke):
     embed = discord.Embed(
         title="",
         color=0xe67e22,
-        description="Hier kannst du dich bewerben:\n"
-                    "https://goo.gl/forms/G8ugLQL7x4OsjU1r1"
+        description="Hallo, dies ist unser Beta Bot Assistant"
     )
     embed.set_author(
         name="Assistant",
