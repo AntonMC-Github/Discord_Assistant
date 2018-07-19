@@ -13,7 +13,7 @@ import start
 client = discord.Client()
 
 players = {}
-allowed_admins = "292712398887059457", "282548932918116352"
+allowed_admins = "292712398887059457"
 
 commands = {
 
@@ -33,7 +33,7 @@ commands = {
     "abstimmung": cmd_abstimmung,
     "bewerbung": cmd_bewerbung,
     "mir-reichts": cmd_mir_reichts,
-    "lock": cmd_lock,
+    •"lock": cmd_lock,
     "unlock": cmd_unlock,
 
 }
@@ -83,6 +83,6 @@ def on_message(message):
         else:
 
             yield from client.send_message(message.channel, embed=Embed(color=discord.Color.red(),
-                                                                        description=("Tut mir leid, diesen #Befehl gibt es nicht! Techniker sind halt von Natur aus faul ;)")))
-
+                                                                        description=("Tut mir leid, diesen Befehl gibt es nicht!")))
+•
 client.run(SECRETS.TOKEN)
