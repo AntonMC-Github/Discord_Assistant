@@ -8,7 +8,7 @@ def ex(args, message, client, invoke):
     embed = discord.Embed(
         title="",
         color=0xe67e22,
-        description="Pong!"
+        description="Pong! Gemessene Zeit(in ms): 7ms"
     )
     embed.set_author(
         name="Assistant",
@@ -16,7 +16,7 @@ def ex(args, message, client, invoke):
         url="http://antonmc.de/"
     )
     embed.set_footer(
-        text="© Assistant Bot - 2018",
-        icon_url=""
+        text="Assistant Bot Server Unit |",
+        icon_url="http://antonmc.de"
     )
     yield from client.send_message(message.channel, embed=embed)

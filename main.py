@@ -2,8 +2,7 @@ import asyncio as asyncio
 import discord
 from discord import Game, Server, Member, Embed
 
-import SECRETS
-import STATICS
+import config
 from commands import cmd_ping, cmd_help, cmd_dieantwort, cmd_baum, cmd_paperfreddie, cmd_pokemon, cmd_lol, \
     cmd_eisen, cmd_afd, cmd_trump, cmd_gold, cmd_bismut, cmd_add, cmd_Schokolade, cmd_kick, \
     cmd_abstimmung, cmd_bewerbung, cmd_mir_reichts, cmd_lock, cmd_unlock
@@ -33,7 +32,7 @@ commands = {
     "abstimmung": cmd_abstimmung,
     "bewerbung": cmd_bewerbung,
     "mir-reichts": cmd_mir_reichts,
-    •"lock": cmd_lock,
+    "lock": cmd_lock,
     "unlock": cmd_unlock,
 
 }
@@ -56,16 +55,20 @@ admin_cmd = {
 @client.event
 @asyncio.coroutine
 def on_ready():
-    start.start()
+    print("Bot hat sich erfolgreich einngeloggt, der Bot laeuft derzeit auf folgenden Servern:\n")
+    for s in client.servers:
+        print("  - %s (%s)" % (s.name, s.id))
+    yield from client.change_presence(game=Game(name="Assistant Bot Ps: Hilft dir gerne xD"))
+
 
 
 
 @client.event
 @asyncio.coroutine
 def on_message(message):
-    if message.content.startswith(STATICS.PREFIX):
+    if message.content.startswith(config.PREFIX):
 
-        invoke = message.content[len(STATICS.PREFIX):].split(" ")[0]
+        invoke = message.content[len(config.PREFIX):].split(" ")[0]
         args = message.content.split(" ")[1:]
 
         if commands.__contains__(invoke):
@@ -84,5 +87,5 @@ def on_message(message):
 
             yield from client.send_message(message.channel, embed=Embed(color=discord.Color.red(),
                                                                         description=("Tut mir leid, diesen Befehl gibt es nicht!")))
-•
-client.run(SECRETS.TOKEN)
+
+client.run(config.TOKEN)
